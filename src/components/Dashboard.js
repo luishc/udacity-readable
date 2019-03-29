@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Message from './Message'
+import Post from './Post';
 
 class Dashboard extends Component {
     render() {
@@ -12,7 +13,7 @@ class Dashboard extends Component {
                     {posts.length !== 0 ? 
                         this.props.posts.map((post) => (
                             <li key={post.id}>
-                                {post.title}
+                                <Post id={post.id} />
                             </li>))
                         : <li className='center'>
                             <Message message='No posts yet!' />

@@ -1,4 +1,4 @@
-import { getPostsByCategory, getPosts, getInitialData } from '../api/ReadableAPI'
+import { getPostsByCategory, getPosts } from '../api/ReadableAPI'
 import { showLoading, hideLoading } from 'react-redux-loading';
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'

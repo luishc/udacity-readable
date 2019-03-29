@@ -70,3 +70,43 @@ li {
   padding: 10px;
   text-decoration: none;
 }
+
+.icon-button {
+  background: transparent;
+  border: none;
+  font-size: 30px;
+  padding: 0 0 0 0;
+  cursor: pointer;
+}
+
+.remove-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.icon-button-transparent {
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  padding: 3px 0 0 0;
+  cursor: pointer;
+}
+
+.vote-score {
+  min-width: 30px;
+  text-align: center;
+  padding: 0 0 3px 15px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: rgba(0,0,0,0);
+  border-top: none;
+}
+
+.card-footer * {
+  margin-left: 5px;
+}
