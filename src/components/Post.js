@@ -6,6 +6,7 @@ import { TiDelete } from 'react-icons/ti'
 import { Card, Row, Col }  from 'react-bootstrap';
 import { formatDate } from '../util/helpers'
 import Vote from './Vote';
+import ReactMarkdown  from 'react-markdown'
 
 class Post extends Component {
 
@@ -43,7 +44,9 @@ class Post extends Component {
                             <Card.Title>{title}</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted">{formatDate(timestamp)} - {category}</Card.Subtitle>
                             <Card.Subtitle className="mb-2 text-muted">Author: @{author}</Card.Subtitle>
-                            <Card.Text>{body}</Card.Text>
+                            <Card.Text>
+                                <ReactMarkdown source={body} />
+                            </Card.Text>
                             <div className='card-footer'>
                                 <Link to={`/edit-post/${id}`}>
                                     <FaEdit />
