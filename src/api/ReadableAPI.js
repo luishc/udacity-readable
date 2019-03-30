@@ -43,3 +43,16 @@ export const getInitialData = () => {
         }, {})
     }) )
 }
+
+export const votePost = (postId, option) =>
+    fetch(`${api}/posts/${postId}`, {
+        method: 'POST',
+        headers: {
+          ...headers,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            option
+        })
+    })
+      .then(res => res.json())
