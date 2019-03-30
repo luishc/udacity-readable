@@ -7,12 +7,14 @@ import { Card, Row, Col }  from 'react-bootstrap';
 import { formatDate } from '../util/helpers'
 import Vote from './Vote';
 import ReactMarkdown  from 'react-markdown'
-import { handleUpdatePostVoteScore } from '../actions/post';
+import { handleUpdatePostVoteScore, handleDeletePost } from '../actions/post';
 
 class Post extends Component {
 
-    handleDelete() {
+    handleDelete = (e) => {
         console.log("HANDLE DELETE")
+        const { dispatch, id } = this.props
+        dispatch(handleDeletePost(id))
     }
 
     handleDislike = (e) => {
@@ -36,19 +38,12 @@ class Post extends Component {
 
         return (
             <Card>
-                <div className='remove-button'>
-                    <button
-                        className='icon-button'
-                        onClick={this.handleDelete}>
-                        <TiDelete />
-                    </button>
-                </div>
                 <Card.Body>
                     <Row>
                         <Col className="center">
                             <Vote voteScore={voteScore} like={this.handleLike} dislike={this.handleDislike} />
                         </Col>
-                        <Col md={11} sm={11}>
+                        <Col md={10} sm={10}>
                             <Card.Title>{title}</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted">{formatDate(timestamp)} - {category}</Card.Subtitle>
                             <Card.Subtitle className="mb-2 text-muted">Author: @{author}</Card.Subtitle>
@@ -62,6 +57,13 @@ class Post extends Component {
                                 </Link>
                                 <span>{commentCount}</span>
                             </div>
+                        </Col>
+                        <Col>
+                            <button
+                                className='icon-button'
+                                onClick={this.handleDelete}>
+                                <TiDelete />
+                            </button>
                         </Col>
                     </Row>
                 </Card.Body>

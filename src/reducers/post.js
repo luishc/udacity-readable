@@ -1,4 +1,7 @@
-import { RECEIVE_POSTS, FILTER_POSTS, UPDATE_POST_VOTE_SCORE } from '../actions/post'
+import { RECEIVE_POSTS, 
+    FILTER_POSTS, 
+    UPDATE_POST_VOTE_SCORE,
+    DELETE_POST } from '../actions/post'
 
 export default function post (state = {}, action) {
     switch (action.type) {
@@ -18,6 +21,15 @@ export default function post (state = {}, action) {
                     ...state[action.postId],
                     voteScore: action.voteScore
                 }
+            }
+        case DELETE_POST:
+            return {
+                ...Object.keys(state)
+                    .filter(key => key !== action.postId)
+                    .reduce((result, current) => {
+                        result[current] = state[current]
+                        return result
+                    }, {})  
             }
         default :
             return state
