@@ -1,7 +1,8 @@
 import { RECEIVE_POSTS, 
     FILTER_POSTS, 
     UPDATE_POST_VOTE_SCORE,
-    DELETE_POST } from '../actions/post'
+    DELETE_POST, 
+    ADD_POST} from '../actions/post'
 
 export default function post (state = {}, action) {
     switch (action.type) {
@@ -30,6 +31,14 @@ export default function post (state = {}, action) {
                         result[current] = state[current]
                         return result
                     }, {})  
+            }
+        case ADD_POST:
+            return {
+                ...state,
+                [action.post.id]: {
+                    ...action.post
+                }
+                
             }
         default :
             return state

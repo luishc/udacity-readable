@@ -1,13 +1,13 @@
-import { getPostsByCategory, getPosts, votePost, removePost } from '../api/ReadableAPI'
+import { getPostsByCategory, getPosts, votePost, removePost, savePost } from '../api/ReadableAPI'
 import { showLoading, hideLoading } from 'react-redux-loading';
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const FILTER_POSTS = 'FILTER_POSTS'
 export const UPDATE_POST_VOTE_SCORE = 'UPDATE_POST_VOTE_SCORE'
 export const DELETE_POST = 'DELETE_POST'
+export const ADD_POST = 'ADD_POST'
 
 export function receivePosts (posts) {
-    console.log(posts)
     return {
         type: RECEIVE_POSTS,
         posts
@@ -87,9 +87,36 @@ export function handleDeletePost(postId) {
         return removePost(postId)
             .then(() => dispatch(hideLoading()))
             .catch(() => {
-                // dispatch(addPost(post))
+                dispatch(addPost(post))
                 console.log("Error on remove post")
             })
             .finally(dispatch(hideLoading()))
+    }
+}
+
+function addPost(post) {
+    return {
+        type: ADD_POST,
+        post
+    }
+}
+
+export function handleAddPost(post) {
+    return(dispatch) => {
+        dispatch(showLoading())
+
+        return savePost(post)
+            .then(res => {
+                console.log(res)
+                dispatch(addPost(res))
+            })
+            .catch((e) => {
+                console.log("POST ID", post.id)
+                console.log("ERRO AO SALVAR POST", e)
+                dispatch(deletePost(post.id))
+            })
+            .finally(() => {
+                dispatch(hideLoading())
+            })
     }
 }

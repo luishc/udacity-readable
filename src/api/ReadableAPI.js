@@ -65,3 +65,14 @@ export const removePost = (postId) =>
         }
     })
     .then(res => res.json())
+
+export const savePost = (post) =>
+    fetch(`${api}/posts`, {
+        method: 'POST',
+        headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(post)
+    })
+    .then(res => res.json())

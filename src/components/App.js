@@ -6,6 +6,7 @@ import MyNav from './MyNav'
 import Container from 'react-bootstrap/Container'
 import Dashboard from './Dashboard'
 import { handleInitialData } from '../actions/shared'
+import NewPost from './NewPost';
 
 class App extends Component {
   componentDidMount() {
@@ -23,6 +24,7 @@ class App extends Component {
                 ? null
                 : <div>
                     <Route  path='/' exact component={Dashboard}/>
+                    <Route  path='/new-post' component={NewPost}/>
                   </div> }
             </Container>
         </Fragment>
