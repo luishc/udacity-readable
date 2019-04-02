@@ -1,4 +1,4 @@
-import { getPostsByCategory, getPosts, votePost, removePost, savePost } from '../api/ReadableAPI'
+import { getPostsByCategory, getPosts, votePost, removePost, savePost, editPost } from '../api/ReadableAPI'
 import { showLoading, hideLoading } from 'react-redux-loading';
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
@@ -118,5 +118,22 @@ export function handleAddPost(post) {
             .finally(() => {
                 dispatch(hideLoading())
             })
+    }
+}
+
+export function handleUpdatePost(post) {
+    return (dispatch, getState) => {
+
+        const originalPost = getState().posts[post.id]
+
+        dispatch(showLoading())
+        dispatch(addPost(post))
+
+        return editPost(post)
+            .catch(() => {
+                dispatch(addPost(originalPost))
+                console.log("ERRO AO EDITAR POST")
+            })
+            .finally(() => dispatch(hideLoading()))
     }
 }

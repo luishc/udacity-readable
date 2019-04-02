@@ -25,6 +25,7 @@ class App extends Component {
                 : <div>
                     <Route  path='/' exact component={Dashboard}/>
                     <Route  path='/new-post' component={NewPost}/>
+                    <Route  path='/edit-post/:id' component={NewPost}/>
                   </div> }
             </Container>
         </Fragment>

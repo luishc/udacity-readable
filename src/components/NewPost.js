@@ -1,22 +1,38 @@
 import React, { Component } from 'react'
 import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { handleAddPost } from '../actions/post';
+import { handleAddPost, handleUpdatePost } from '../actions/post';
 import { generateUID } from '../util/helpers'
 import { Redirect } from 'react-router-dom'
 
 class NewPost extends Component {
 
-    constructor() {
+    constructor () {
         super()
 
-        this.state = { 
+        this.state = {
+            isEditing: false,
             validated: false,
             category: '',
             name: '',
             title: '',
             post: '',
             redirect: false
+        }
+    }
+    
+    componentDidMount() {
+        const { postToEdit } = this.props
+
+        if(postToEdit) {
+            const { author, body, category, title } = postToEdit
+            this.setState({
+                isEditing: true,
+                name: author,
+                post: body,
+                category,
+                title
+            })
         }
     }
 
@@ -30,20 +46,22 @@ class NewPost extends Component {
 
         this.setState({ validated: true });
 
-        const { dispatch } = this.props
+        const { dispatch, postToEdit } = this.props
         
         const post = {
-            id: generateUID(),
-            timestamp: new Date().getTime(),
+            id: !this.state.isEditing ? generateUID() : postToEdit.id,
+            timestamp: !this.state.isEditing ? new Date().getTime() : postToEdit.timestamp,
             title: this.state.title,
             body: this.state.post,
             author: this.state.name ? this.state.name : 'anonymous',
             category: this.state.category
         }
 
-        console.log(JSON.stringify(post))
-
-        dispatch(handleAddPost(post))
+        if(!this.state.isEditing){
+            dispatch(handleAddPost(post))
+        } else {
+            dispatch(handleUpdatePost(post))
+        }
 
         this.setState(() => ({
             redirect: true
@@ -129,9 +147,13 @@ class NewPost extends Component {
     }
 }
 
-function mapStateToProps({categories}){
+function mapStateToProps({categories, posts}, props){
+
+    const { id } = props.match.params
+
     return {
-        categories
+        categories,
+        postToEdit: posts[id]
     }
 }
 
