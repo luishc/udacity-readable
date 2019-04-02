@@ -49,7 +49,7 @@ class Post extends Component {
                             <Card.Subtitle className="mb-2 text-muted">Author: @{author}</Card.Subtitle>
                             <ReactMarkdown source={body} />
                             <div className='card-footer'>
-                                <Link to={`/edit-post/${id}`}>
+                                <Link to={`/${category}/${id}`}>
                                     <FaEdit />
                                 </Link>
                                 <Link to={`/post/${id}`} >

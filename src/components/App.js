@@ -24,8 +24,9 @@ class App extends Component {
                 ? null
                 : <div>
                     <Route  path='/' exact component={Dashboard}/>
-                    <Route  path='/new-post' component={NewPost}/>
-                    <Route  path='/edit-post/:id' component={NewPost}/>
+                    <Route  path='/:category' exact component={Dashboard}/>
+                    <Route  path='/:category/:id' exact component={NewPost}/>
+                    <Route  path='/new-post' exact component={NewPost}/>
                   </div> }
             </Container>
         </Fragment>

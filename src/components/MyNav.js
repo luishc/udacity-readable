@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Navbar, Nav }  from 'react-bootstrap';
 import CategorySelection from './CategorySelection';
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 import { filterPostsByCategory } from '../actions/post'
+import { withRouter } from "react-router";
 
 class MyNav extends Component {
 
@@ -15,8 +16,10 @@ class MyNav extends Component {
             selectedCategory
         })
 
-        const { dispatch } = this.props
+        const path = `/${selectedCategory}`
+        this.props.history.push(path)
 
+        const { dispatch } = this.props
         dispatch(filterPostsByCategory(selectedCategory))
     }
 
@@ -30,13 +33,11 @@ class MyNav extends Component {
                         <Nav.Link href='/' active={window.location.pathname === '/'}>Home</Nav.Link>
                         <Nav.Link href="/new-post" active={window.location.pathname === '/new-post'}>New Post</Nav.Link>
                     </Nav>
-                    { window.location.pathname === '/' &&
-                        <Nav>
-                            <CategorySelection
-                                selectedCategory={this.state.selectedCategory}
-                                handleCategoryChange={this.handleCategoryChange} />
-                        </Nav>
-                    }
+                    <Nav>
+                        <CategorySelection
+                            selectedCategory={this.state.selectedCategory}
+                            handleCategoryChange={this.handleCategoryChange} />
+                    </Nav>
                 </Navbar.Collapse>
             </Navbar>
         )
@@ -49,4 +50,4 @@ function mapStateToProps ({posts}) {
     }
 }
 
-export default connect(mapStateToProps)(MyNav)
+export default withRouter(connect(mapStateToProps)(MyNav))

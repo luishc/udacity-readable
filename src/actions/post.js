@@ -25,10 +25,9 @@ export function filterPostsByCategory(category) {
     return (dispatch) => {
         dispatch(showLoading())
 
-        if(category !== ''){
+        if(category !== undefined && category !== ''){
             return getPostsByCategory(category)
             .then((data) => {
-                console.log(data)
                 dispatch(filterPosts(data))
             })
             .finally(() => dispatch(hideLoading()))
