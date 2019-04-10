@@ -110,3 +110,9 @@ li {
 .card-footer * {
   margin-left: 5px;
 }
+
+.bottom-fixed {
+  position: absolute;
+  bottom: 0;
+  margin-left: 10px;
+}

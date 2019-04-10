@@ -6,6 +6,7 @@ export const FILTER_POSTS = 'FILTER_POSTS'
 export const UPDATE_POST_VOTE_SCORE = 'UPDATE_POST_VOTE_SCORE'
 export const DELETE_POST = 'DELETE_POST'
 export const ADD_POST = 'ADD_POST'
+export const UPDATE_POST_COMMENTS_COUNT = 'UPDATE_POST_COMMENTS_COUNT'
 
 export function receivePosts (posts) {
     return {
@@ -134,5 +135,13 @@ export function handleUpdatePost(post) {
                 console.log("ERRO AO EDITAR POST")
             })
             .finally(() => dispatch(hideLoading()))
+    }
+}
+
+export function updatePostCommentsCount (postId, commentCount) {
+    return {
+        type: UPDATE_POST_COMMENTS_COUNT,
+        postId,
+        commentCount
     }
 }

@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container'
 import Dashboard from './Dashboard'
 import { handleInitialData } from '../actions/shared'
 import NewPost from './NewPost';
+import CommentsPage from './CommentsPage';
 
 class App extends Component {
   componentDidMount() {
@@ -24,8 +25,9 @@ class App extends Component {
                 ? null
                 : <div>
                     <Route  path='/' exact component={Dashboard}/>
+                    <Route  path='/post/:postId' exact component={CommentsPage}/>
                     <Route  path='/:category' exact component={Dashboard}/>
-                    <Route  path='/:category/:id' exact component={NewPost}/>
+                    {/* <Route  path='/:category/:id'exact component={NewPost}/> */}
                     <Route  path='/new-post' exact component={NewPost}/>
                   </div> }
             </Container>

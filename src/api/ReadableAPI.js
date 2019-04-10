@@ -87,3 +87,55 @@ export const editPost = (post) =>
         body: JSON.stringify(post)
     })
         .then(res => res.json())
+
+export const getComments = (postId) =>
+    fetch(`${api}/posts/${postId}/comments`, { headers })
+        .then(res => res.json())
+        .then(res => (res.reduce((map, obj) => {
+                map[obj.id] = obj
+                return map
+            }, {})))
+
+export const saveComment = (comment) =>
+    fetch(`${api}/comments`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(comment)
+    })
+        .then(res => res.json())
+
+export const voteComment = (commentId, option) =>
+    fetch(`${api}/comments/${commentId}`, {
+        method: 'POST',
+        headers: {
+          ...headers,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            option
+        })
+    })
+        .then(res => res.json())
+
+export const removeComment = (commentId) =>
+    fetch(`${api}/comments/${commentId}`, {
+        method: 'DELETE',
+        headers: {
+        ...headers
+        }
+    })
+        .then(res => res.json())
+
+export const editComment = (comment) =>
+    fetch(`${api}/comments/${comment.id}`, {
+        method: 'PUT',
+        headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(comment)
+    })
+        .then(res => res.json())
